@@ -1,0 +1,36 @@
+.cars-table-component {
+    margin-bottom: 2vh;
+}
+
+.cars-table-component__action-panel {
+    margin-bottom: 2vh;
+}
+
+.cars-table-component__thead {
+    font-size: 14px;
+}
+
+.cars-table-component__table-wrap {
+    height: 72vh;
+    overflow: auto;
+}
+
+/* Update car */
+
+.update-car {
+   margin-bottom: 2vh;
+}
+.update-car__heading {
+    margin-bottom: 0;
+    font-size: 18px;
+}
+.update-car__header-icon {
+    font-size: 18px;
+}
+.update-car__form .ng-invalid.ng-touched {
+    border-color: #bd4736;
+}
+.update-car__action-btn {
+    margin-left: 3px;
+    margin-right: 3px;
+}

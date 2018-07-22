@@ -1,0 +1,98 @@
+<div *ngIf="router.url == '/add-car'" class="add-car">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between align-content-center">
+                        <h2 class="add-car__heading">Add car</h2>
+                        <i class="add-card__header-icon fa fa-car"></i>
+                    </div>
+                    
+                    <div class="card-body">
+                        <form class="add-car__form" (ngSubmit)="onSubmit(f)" #f="ngForm">
+                            <div class="form-group">
+                                <label for="car-brand">Car brand</label>
+                                <input type="text"
+                                       class="form-control"
+                                       id="car-brand"
+                                       placeholder="Please enter brand of the car"
+                                       ngModel
+                                       name="brand"
+                                       required
+                                       #brand="ngModel">
+                                <span class="help-block text-danger" *ngIf="!brand.valid && f.submitted">You really should enter brand of the car!</span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="car-model">Car model</label>
+                                <input type="text"
+                                       class="form-control"
+                                       id="car-model"
+                                       placeholder="Please enter model of the car"
+                                       ngModel
+                                       name="model"
+                                       required
+                                       #model="ngModel">
+                                <span class="help-block text-danger" *ngIf="!model.valid && f.submitted">You really should enter model of the car!</span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="car-description">Description</label>
+                                <textarea class="form-control"
+                                          id="car-description"
+                                          rows="3"
+                                          placeholder="Please enter some description"
+                                          ngModel
+                                          name="description"></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="registration-number">Registration number</label>
+                                <input type="text"
+                                       class="form-control"
+                                       id="registration-number"
+                                       placeholder="Please enter registration number"
+                                       ngModel
+                                       name="registernumber"
+                                       required
+                                       #regnumber="ngModel">
+                                <span class="help-block text-danger" *ngIf="!regnumber.valid && f.submitted">You really should enter registration number of the car!</span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="car-fuel-type">Car fuel type</label>
+                                <select class="form-control"
+                                        id="car-fuel-type"
+                                        [ngModel]="'Petrol'"
+                                        name="fueltype">
+                                    <option value="Petrol">Petrol</option>
+                                    <option value="Diesel">Diesel</option>
+                                    <option value="Electric">Electric</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="car-transmission">Car transmission</label>
+                                <select class="form-control"
+                                        id="car-transmission"
+                                        [ngModel]="'Manual'"
+                                        name="transmission">
+                                    <option value="Manual">Manual</option>
+                                    <option value="Automatic">Automatic</option>
+                                    <option value="Semi-Automatic">Semi-Automatic</option>
+                                </select>
+                            </div>
+
+                            <div class="d-flex flex-row-reverse">
+                                <button type="submit" class="add-car__action-btn btn btn-info"><i class="fa fa-plus"></i> Add car</button>
+                                <button routerLink="/" class="add-car__action-btn btn btn-outline-dark"><i class="fa fa-times"></i> Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

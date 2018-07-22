@@ -1,0 +1,171 @@
+<div *ngIf="router.url == '/'" class="cars-table-component">
+    <div class="container-fluid">
+        <div class="cars-table-component__action-panel">
+            <div class="row">
+                <div class="col">
+                    <div class="d-flex flex-row-reverse justify-content-between align-items-center">
+                        <button routerLink="/add-car" type="button" class="btn btn-secondary"><i class="fa fa-car"></i> / Add new Card</button>
+                        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <div class="cars-table-component__table-wrap">
+                    <div class="table-responsive-sm">
+                        <table class="table">
+                            <thead class="cars-table-component__thead">
+                            <tr>
+                                <th>ID</th>
+                                <th>Brand</th>
+                                <th>Model</th>
+                                <th>Description</th>
+                                <th>registration Number</th>
+                                <th>Fuel Type</th>
+                                <th>Transmission</th>
+                                <th>Update</th>
+                                <th>Delete</th>
+                            </tr>
+                            </thead>
+
+                            <tbody>
+                            <tr *ngFor="let car of carService.getCars() | paginate: { itemsPerPage: 10, currentPage: p }">
+                                <td>{{ car.id }}</td>
+                                <td>{{ car.brand }}</td>
+                                <td>{{ car.model }}</td>
+                                <td>{{ car.description }}</td>
+                                <td>{{ car.registrationNumber }}</td>
+                                <td>{{ car.fuelType }}</td>
+                                <td>{{ car.transmission }}</td>
+                                <td>
+                                    <button class="btn btn-info" (click)="open(updateCarModal)"><i class="fa fa-refresh" aria-hidden="true"></i> Update</button>
+                                </td>
+                                <td>
+                                    <button class="btn btn-danger" (click)="open(deleteCarModal)"><i class="fa fa-trash" aria-hidden="true"></i> Delete</button>
+                                </td>
+
+                                <ng-template #deleteCarModal let-c="close" let-d="dismiss">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">Delete car</h4>
+                                        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Are you sure you want to delete this item?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-outline-dark" (click)="c('Close click')"><i class="fa fa-times"></i> Cancel</button>
+                                        <button type="button" class="btn btn-danger" (click)="carService.deleteCar(car.id); c('Close click')"><i class="fa fa-trash" aria-hidden="true"></i> Delete</button>
+                                    </div>
+                                </ng-template>
+
+                                <ng-template #updateCarModal let-c="close" let-d="dismiss">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">Update car</h4>
+                                        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <form class="add-car__form" (ngSubmit)="onSubmit(f); c('Close click')" #f="ngForm">
+                                        <input type="hidden" name="id" ngModel="{{ car.id }}">
+
+                                        <div class="modal-body">
+                                            <div class="form-group">
+                                                <label for="car-brand">Car brand</label>
+                                                <input type="text"
+                                                       class="form-control"
+                                                       id="car-brand"
+                                                       placeholder="Please enter brand of the car"
+                                                       ngModel="{{ car.brand }}"
+                                                       value="{{ car.brand }}"
+                                                       name="brand"
+                                                       required
+                                                       #brand="ngModel">
+                                                <span class="help-block text-danger" *ngIf="!brand.valid && f.submitted">You really should enter brand of the car!</span>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="car-model">Car model</label>
+                                                <input type="text"
+                                                       class="form-control"
+                                                       id="car-model"
+                                                       placeholder="Please enter model of the car"
+                                                       ngModel="{{ car.model }}"
+                                                       value="{{ car.model }}"
+                                                       name="model"
+                                                       required
+                                                       #model="ngModel">
+                                                <span class="help-block text-danger" *ngIf="!model.valid && f.submitted">You really should enter model of the car!</span>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="car-description">Description</label>
+                                                <textarea class="form-control"
+                                                          id="car-description"
+                                                          rows="3"
+                                                          placeholder="Please enter some description"
+                                                          ngModel="{{ car.description }}"
+                                                          value="{{ car.description }}"
+                                                          name="description"></textarea>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="registration-number">Registration number</label>
+                                                <input type="text"
+                                                       class="form-control"
+                                                       id="registration-number"
+                                                       placeholder="Please enter registration number"
+                                                       ngModel="{{ car.registrationNumber }}"
+                                                       value="{{ car.registrationNumber }}"
+                                                       name="registernumber"
+                                                       required
+                                                       #regnumber="ngModel">
+                                                <span class="help-block text-danger" *ngIf="!regnumber.valid && f.submitted">You really should enter registration number of the car!</span>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="car-fuel-type">Car fuel type</label>
+                                                <select class="form-control"
+                                                        id="car-fuel-type"
+                                                        ngModel="{{ car.fuelType }}"
+                                                        value="{{ car.registrationNumber }}"
+                                                        name="fueltype">
+                                                    <option value="Petrol">Petrol</option>
+                                                    <option value="Diesel">Diesel</option>
+                                                    <option value="Electric">Electric</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="car-transmission">Car transmission</label>
+                                                <select class="form-control"
+                                                        id="car-transmission"
+                                                        ngModel="{{ car.transmission }}"
+                                                        value="{{ car.transmission }}"
+                                                        name="transmission">
+                                                    <option value="Manual">Manual</option>
+                                                    <option value="Automatic">Automatic</option>
+                                                    <option value="Semi-Automatic">Semi-Automatic</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button class="add-car__action-btn btn btn-outline-dark"  (click)="c('Close click')"><i class="fa fa-times"></i> Cancel</button>
+                                            <button type="submit" class="add-car__action-btn btn btn-info"><i class="fa fa-refresh" aria-hidden="true"></i> Update</button>
+                                        </div>
+
+                                    </form>
+                                </ng-template>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

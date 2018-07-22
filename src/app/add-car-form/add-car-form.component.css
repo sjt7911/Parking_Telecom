@@ -1,0 +1,17 @@
+.add-car {
+    margin-bottom: 2vh;
+}
+.add-car__heading {
+    margin-bottom: 0;
+    font-size: 18px;
+}
+.add-card__header-icon {
+    font-size: 18px;
+}
+.add-car__form .ng-invalid.ng-touched {
+    border-color: #bd4736;
+}
+.add-car__action-btn {
+    margin-left: 3px;
+    margin-right: 3px;
+}
