@@ -52,11 +52,6 @@ export class CarsTableComponent implements OnInit {
 
   open(content): any {
     this.modalService.open(content);
-    return this.modalService.result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
   }
 
   private getDismissReason(reason: any): string {
